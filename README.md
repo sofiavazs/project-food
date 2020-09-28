@@ -6,9 +6,10 @@ During the session your team will be challenged to build a website that lists re
 
 Your page will be built based on a random combination of cuisine, city, and design provided by the Technigo team on site. All data should be fetched from the [Zomato API.](https://developers.zomato.com/)  
 
-## Your team's combination: [cuisine] restaurants in [city]
+## Your team's combination: Burgers restaurants in Sydney
 
-Your team has been tasked with using the Zomato API to list [cuisine] restaurants in [city]
+Your team has been tasked with using the Zomato API to list Burgers restaurants in Sydney
+![Online Pizza](https://camo.githubusercontent.com/b72485a96a0e7cb1d5487342b2712593ce00f405/68747470733a2f2f692e696d6775722e636f6d2f435668337a69302e6a7067)
 
 ## How to complete this task
 
