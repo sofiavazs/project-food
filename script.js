@@ -27,6 +27,7 @@ fetch(zomatoApiUrlCuisine, apiKey)
     console.log(data);
     data.restaurants.forEach((restaurantContainer) => {
       const restaurantList = document.getElementById('restaurantList');
+
       restaurantList.innerHTML += `
       <section class="restaurants">
         <div id="card-info">
@@ -35,29 +36,40 @@ fetch(zomatoApiUrlCuisine, apiKey)
         </div>
         <img id="image"src=${restaurantContainer.restaurant.featured_image}>
         <div id="cost">
-          <p>Average cost (2 people): $${restaurantContainer.restaurant.average_cost_for_two}</p>
+          <p>Price Range: ${restaurantContainer.restaurant.price_range}</p>
         </div>
         <div>
           <p>Address: ${restaurantContainer.restaurant.location.address}</p>
         </div>
       </section>
-        
       `;
+
+
     });
+    const filterPriceRange = restaurantContainer.restaurant.price_range;
+    const priceRangeValue = document.getElementById("priceRanges").value
+    const priceRangeElement = (filterPriceRange, priceRangeValue) => {
+      if (filterPriceRange === 1) {
+        // console.log("$")
+      } else if (filterPriceRange === 2) {
+        // console.log(filterPriceRange)
+      } else if (filterPriceRange === 3) {
+        // console.log(filterPriceRange)
+      } else if (filterPriceRange === 4) {
+        // console.log(filterPriceRange)
+      } else if (filterPriceRange === 5) {
+        // console.log(filterPriceRange)
+      } else {
+        // console.log(filterPriceRange)
+      }
+    }
+    let selectPriceRange = '';
+    priceRangeElement(selectPriceRange);
 
-    
-    //ITERATING OVER THE ARRAY WITH MAP 
+    document.getElementById('priceRanges').addEventListener('change', (event) => {
+      selectPriceRange = event.target.value;
+      console.log(selectPriceRange)
+      priceRangeElement(filterPriceRange, priceRangeValue);
 
-    // const testmap = data.restaurants.map(
-    //   (restaurantContainer) => restaurantContainer.restaurant.name
-    // );
-    // console.log(testmap);
+    });
   });
-  // const forecast = document.getElementById('forecast');
-  // const forecastIcon = document.getElementById('forecastIcon');
-  // forecast.innerHTML = "";
-  // for (const date in minMaxTemps) { 
-  //     forecast.innerHTML += `<div class="column">${minMaxTemps[date].dayOfWeek}</div>`
-  //     forecast.innerHTML += `<img src="http://openweathermap.org/img/wn/${minMaxTemps[date].icon}@2x.png"></img>`
-  //     forecast.innerHTML += `<div class="column">${minMaxTemps[date].minTemp.toFixed(0)} °C | ${minMaxTemps[date].maxTemp.toFixed(0)} °C </div>`
-  // };
