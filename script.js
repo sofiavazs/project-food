@@ -31,14 +31,19 @@ fetch(zomatoApiUrlCuisine, apiKey)
       <section class="restaurants">
         <div id="card-info">
         <img id="image"src=${restaurantContainer.restaurant.featured_image}>
-          <p>${restaurantContainer.restaurant.name}</p>
-          <p>${restaurantContainer.restaurant.user_rating.rating_text} ${restaurantContainer.restaurant.user_rating.aggregate_rating}</p>
+          <p class="restaurantName">${restaurantContainer.restaurant.name}</p>
+          <p class="rating">${restaurantContainer.restaurant.user_rating.aggregate_rating}</p>
+          <p class="dollar">$</p>
+          
         </div>
         <div id="cost">
           <p>Average cost (2 people): $${restaurantContainer.restaurant.average_cost_for_two}</p>
         </div>
         <div>
           <p>Address: ${restaurantContainer.restaurant.location.address}</p>
+        </div>
+        </div>
+        </div>
         </div>
       </section>
         
