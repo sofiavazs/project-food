@@ -7,22 +7,16 @@
 // - The address of the restaurant
 // - An image (you choose which image you'd like to display from the response)
 // - Either the `aggregate_rating` or the `rating_text` for that restaurant
+let zomatoData;
 
-const cityId = "260"; //Sydney
-const cuisineId = "168"; //Burger
-
-const zomatoApiUrlCuisine = `https://developers.zomato.com/api/v2.1/search?entity_id=${cityId}&entity_type=city&cuisines=${cuisineId}`;
-
-const apiKey = {
-  headers: {
-    "user-key": "e2ebc2f85586d3cdd1bcde9e2e9924d4"
-  }
-};
-
-const buildRestaurantList = (data) => {
+const buildRestaurantList = (data, priceRangeValue) => {
+  const restaurantList = document.getElementById('restaurantList');
+  restaurantList.innerHTML = "";
   data.restaurants.forEach((restaurantContainer) => {
-    const restaurantList = document.getElementById('restaurantList');
-
+    if (priceRangeValue && priceRangeValue != restaurantContainer.restaurant.price_range) {
+      console.log (priceRangeValue, restaurantContainer.restaurant.price_range)
+      return 
+    }
     restaurantList.innerHTML += `
     <section class="restaurants">
       <div id="card-info">
@@ -31,7 +25,7 @@ const buildRestaurantList = (data) => {
       </div>
       <img id="image"src=${restaurantContainer.restaurant.featured_image}>
       <div id="cost">
-        <p>Price Range: ${restaurantContainer.restaurant.price_range}</p>
+        <p class ="dollar">Price Range: ${restaurantContainer.restaurant.price_range}</p>
       </div>
       <div>
         <p>Address: ${restaurantContainer.restaurant.location.address}</p>
@@ -39,39 +33,33 @@ const buildRestaurantList = (data) => {
     </section>
     `;
   });
+};
 
-}
-
-const filterByPriceRange = (priceRangeValue) => {
-  if (priceRangeValue === 1) {
-    console.log(priceRangeValue)
-  } else if (priceRangeValue === 2) {
-    console.log(priceRangeValue)
-  } else if (priceRangeValue === 3) {
-    console.log(priceRangeValue)
-  } else if (priceRangeValue === 4) {
-    console.log(priceRangeValue)
-  } else if (priceRangeValue === 5) {
-    console.log(priceRangeValue)
-  } else {
-    console.log(priceRangeValue)
-  }
-}
-
-fetch(zomatoApiUrlCuisine, apiKey)
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    console.log(data);
-    buildRestaurantList(data);
-
-    // const filterPriceRange = restaurantContainer.restaurant.price_range; // don't think we need this
-    // const priceRangeValue = document.getElementById("priceRanges").value //same here! 
-
-    document.getElementById('priceRanges').addEventListener('change', (event) => {
-      const selectedPriceRangeValue = event.target.value;
-      console.log(selectedPriceRangeValue)
-      filterByPriceRange(selectedPriceRangeValue);
-    });
+const fetchZomato = () => { 
+  const cityId = "260"; //Sydney
+  const cuisineId = "168"; //Burger
+  const zomatoApiUrlCuisine = `https://developers.zomato.com/api/v2.1/search?entity_id=${cityId}&entity_type=city&cuisines=${cuisineId}`;
+  const apiKey = {
+    headers: {
+      "user-key": "e2ebc2f85586d3cdd1bcde9e2e9924d4"
+    }
+  };
+  fetch(zomatoApiUrlCuisine, apiKey)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      zomatoData = data
+      console.log(data); // To Remove later
+      buildRestaurantList(data);
   });
+}
+fetchZomato();
+  
+const dropdownEventListener = document.getElementById('priceRanges').addEventListener;
+
+dropdownEventListener('change', (event) => {
+  const selectedPriceRangeValue = event.target.value;
+  console.log(selectedPriceRangeValue)
+  buildRestaurantList(zomatoData,selectedPriceRangeValue)
+});
