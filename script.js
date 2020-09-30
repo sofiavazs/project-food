@@ -30,10 +30,10 @@ fetch(zomatoApiUrlCuisine, apiKey)
       restaurantList.innerHTML += `
       <section class="restaurants">
         <div id="card-info">
+        <img id="image"src=${restaurantContainer.restaurant.featured_image}>
           <p>${restaurantContainer.restaurant.name}</p>
           <p>${restaurantContainer.restaurant.user_rating.rating_text} ${restaurantContainer.restaurant.user_rating.aggregate_rating}</p>
         </div>
-        <img id="image"src=${restaurantContainer.restaurant.featured_image}>
         <div id="cost">
           <p>Average cost (2 people): $${restaurantContainer.restaurant.average_cost_for_two}</p>
         </div>
