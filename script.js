@@ -14,18 +14,19 @@ const buildRestaurantList = (data, priceRangeValue) => {
   restaurantList.innerHTML = "";
   data.restaurants.forEach((restaurantContainer) => {
     if (priceRangeValue && priceRangeValue != restaurantContainer.restaurant.price_range) {
-      console.log (priceRangeValue, restaurantContainer.restaurant.price_range)
       return 
     }
     restaurantList.innerHTML += `
     <section class="restaurants">
       <div id="card-info">
-        <p>${restaurantContainer.restaurant.name}</p>
+        <p class="restaurantName">${restaurantContainer.restaurant.name}</p>
         <p>${restaurantContainer.restaurant.user_rating.rating_text} ${restaurantContainer.restaurant.user_rating.aggregate_rating}</p>
       </div>
       <img id="image"src=${restaurantContainer.restaurant.featured_image}>
       <div id="cost">
         <p class ="dollar">Price Range: ${restaurantContainer.restaurant.price_range}</p>
+        <p>Average cost (2 people): $${restaurantContainer.restaurant.average_cost_for_two}</p>
+        <p>
       </div>
       <div>
         <p>Address: ${restaurantContainer.restaurant.location.address}</p>
@@ -50,16 +51,18 @@ const fetchZomato = () => {
     })
     .then((data) => {
       zomatoData = data
-      console.log(data); // To Remove later
       buildRestaurantList(data);
   });
 }
 fetchZomato();
+
+// Filter by price function 
   
 const dropdownEventListener = document.getElementById('priceRanges').addEventListener;
 
 dropdownEventListener('change', (event) => {
   const selectedPriceRangeValue = event.target.value;
-  console.log(selectedPriceRangeValue)
   buildRestaurantList(zomatoData,selectedPriceRangeValue)
 });
+
+
